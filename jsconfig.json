@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src/",
+        "target": "esnext",
+        "allowSyntheticDefaultImports": true,
+        "include": [
+            "src"
+        ]
+    }
+}
