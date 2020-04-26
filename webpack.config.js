@@ -1,6 +1,7 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const path = require('path');
 module.exports = {
+    target : "web",
     module: {
         rules: [
             {
@@ -9,6 +10,10 @@ module.exports = {
                 use: {
                     loader: "babel-loader"
                 }
+            },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
             },
             {
                 test: /\.html$/,
@@ -27,8 +32,18 @@ module.exports = {
         })
     ],
     resolve: {
+        extensions: ['*', '.js'],
         alias: {
-            '@model': path.resolve(__dirname, 'src/model/')
+            '@model': path.resolve(__dirname, 'src/model/'),
+            '@styles': path.resolve(__dirname, 'src/styles/')
         }
+    },
+    output: {
+        path: path.resolve(__dirname,'/dist'),
+        publicPath: '/',
+        filename: 'bundle.js'
+    },
+    devServer: {
+        contentBase: './dist'
     }
 };
