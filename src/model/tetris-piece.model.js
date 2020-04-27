@@ -1,6 +1,7 @@
 import {Game} from "@model/game.model";
 import pieces from '@ref/tetris-pieces.reference';
 
+export const pieceSize = Object.values(pieces)[0].length;
 export class Location {
     constructor(x = 0, y = 0) {
         this.x = x;
