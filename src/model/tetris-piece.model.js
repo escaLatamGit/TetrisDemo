@@ -32,19 +32,22 @@ export class TetrisPiece {
     }
 
     moveLeft(inc = 1) {
-
+        this.move(-inc, 0);
     }
 
     moveRight(inc = 1) {
 
+        this.move(inc, 0);
     }
 
     moveUp(inc = 1) {
 
+        this.move(0, -inc);
     }
 
     moveDown(inc = 1) {
 
+        this.move(0, inc);
     }
 
     draw() {
