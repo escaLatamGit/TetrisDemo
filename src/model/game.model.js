@@ -10,10 +10,12 @@ export class BoardSize {
 export class Game {
 
     constructor(fps, boardSize = new BoardSize()) {
+        this._id = 0;
         this.fps = fps;
         this.canvas = null;
         this.ctx = null;
-        this.sizes = boardSize
+        this.sizes = boardSize;
+        this.fpsAttach = []
     }
 
     init(containerSelector, canvasSelector) {
@@ -26,12 +28,19 @@ export class Game {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.refresh();
-        setInterval(this.refresh, 1000 / this.fps)
+        const self = this;
+        setInterval(() => self.refresh(), 1000 / self.fps)
 
     }
 
     refresh() {
-        this.updateCanvasStyle({height: this.sizes.height, width: this.sizes.width})
+        this.updateCanvasStyle({height: this?.sizes?.height, width: this?.sizes?.width});
+        this.fpsAttach.forEach(({id, event}) => event(this))
+    }
+
+    attachToRefresh(callback) {
+        this.fpsAttach.push({id: this._id++, event: callback});
+        return this._id;
     }
 
     updateCanvasStyle(style) {
