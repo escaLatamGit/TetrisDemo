@@ -24,7 +24,6 @@ export class KeyBoardManager {
     init() {
         Object.keys(this.keyListeners).forEach((eventName) => {
             document.addEventListener(eventName, (event) => {
-                console.log(eventName, event.key, event);
                 this.resolve(eventName, event)
             })
         })
