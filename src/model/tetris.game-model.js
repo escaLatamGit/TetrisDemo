@@ -34,15 +34,15 @@ export class TetrisGame extends Game {
         });
         this.keyListener.addListener('keydown', 'ArrowLeft', () => {
             if (!this.currPiece) return;
-            this.currPiece.moveLeft(this.sizes.pixelWidth);
+            this.currPiece.moveLeft();
         });
         this.keyListener.addListener('keydown', 'ArrowDown', () => {
             if (!this.currPiece) return;
-            this.currPiece.moveDown(this.sizes.pixelHeight / 2);
+            this.currPiece.moveDown();
         });
         this.keyListener.addListener('keydown', 'ArrowRight', () => {
             if (!this.currPiece) return;
-            this.currPiece.moveRight(this.sizes.pixelWidth);
+            this.currPiece.moveRight();
         });
     }
 
