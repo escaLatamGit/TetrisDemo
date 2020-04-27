@@ -1,11 +1,10 @@
 
 .game-canvas {
     border: 2px solid blueviolet;
+    background-color: darkgray;
 
 }
 .game-container {
-    border: 2px solid blueviolet;
-    width: 100px;
-    height: 100px;
-    overflow: auto;
+    margin: 10px;
+    padding: 10px;
 }
