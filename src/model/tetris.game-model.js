@@ -1,13 +1,13 @@
 import {BoardSize, Game} from "@model/game.model";
 import {KeyBoardManager} from "@model/key-board-manager.model";
-import {Location, pieceSize, TetrisPiece} from "@model/tetris-piece.model";
+import {Location, pieceSize, TetrisPiece, validPieces} from "@model/tetris-piece.model";
 
 export class TetrisGame extends Game {
 
     constructor(fps, panel = new BoardSize(20, 10), color = '#436315') {
         const sizes = new BoardSize(panel.height * panel.pixelHeight, panel.width * panel.pixelWidth, panel.pixelHeight, panel.pixelWidth);
         super(fps, sizes);
-        this.currPiece;
+        this.currPiece = null;
         this.keyListener = new KeyBoardManager();
         this.panel = {
             size: panel,
@@ -21,12 +21,17 @@ export class TetrisGame extends Game {
     refresh() {
         super.refresh();
     }
+    getRandomPiece(){
 
+        const pieceName = validPieces[Math.floor(Math.random()*validPieces.length)];
+        const x = Math.floor(Math.random()*(this.panel.size.width-pieceSize));
+        return  new TetrisPiece(this, pieceName, 'purple', new Location(x, 0));
+    }
     init(containerSelector, canvasSelector) {
         super.init(containerSelector, canvasSelector);
         super.attachToRefresh(() => this.draw());
         super.attachToRefresh(() => this.currPiece && this.currPiece.draw());
-        this.currPiece = new TetrisPiece(this, 'L', 'purple', new Location(0, 0));
+        this.currPiece = this.getRandomPiece();
         this.keyListener.init();
         this.keyListener.addListener('keydown', 'ArrowUp', () => {
             if (!this.currPiece) return;

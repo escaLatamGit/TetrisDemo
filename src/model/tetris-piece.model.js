@@ -2,6 +2,7 @@ import {Game} from "@model/game.model";
 import pieces from '@ref/tetris-pieces.reference';
 
 export const pieceSize = Object.values(pieces)[0].length;
+export const validPieces = Object.keys(pieces);
 export class Location {
     constructor(x = 0, y = 0) {
         this.x = x;
@@ -54,14 +55,13 @@ export class TetrisPiece {
     draw() {
         const pieceMap = this.snapshots[this.angle];
         if (!pieceMap) throw new Error(`Invalid Piece type found ${this.type}`);
-
         for (const y in pieceMap) {
             for (const x in pieceMap[y]) {
                 if (!pieceMap[y][x]) continue;
                 this.game.ctx.fillStyle = this.color;
                 this.game.ctx.fillRect(
-                     this.location.x + x  * this.game.sizes.pixelWidth,
-                     this.location.y + y  * this.game.sizes.pixelHeight,
+                     (this.location.x + parseInt(x) ) * this.game.sizes.pixelWidth,
+                     (this.location.y + parseInt(y) ) * this.game.sizes.pixelHeight,
                     this.game.sizes.pixelWidth,
                     this.game.sizes.pixelHeight)
 
