@@ -59,8 +59,8 @@ export class TetrisPiece {
                 if (!pieceMap[y][x]) continue;
                 this.game.ctx.fillStyle = this.color;
                 this.game.ctx.fillRect(
-                    (this.location.x + x) * this.game.sizes.pixelWidth,
-                    (this.location.y + y) * this.game.sizes.pixelHeight,
+                     this.location.x + x  * this.game.sizes.pixelWidth,
+                     this.location.y + y  * this.game.sizes.pixelHeight,
                     this.game.sizes.pixelWidth,
                     this.game.sizes.pixelHeight)
 
