@@ -1,11 +1,11 @@
 import {BoardSize, Game} from "@model/game.model";
 import {KeyBoardManager} from "@model/key-board-manager.model";
 import {Location, pieceSize, TetrisPiece, validPieces} from "@model/tetris-piece.model";
-import colors from '@ref/piece-colors.reference'
+import colorList from '@ref/piece-colors.reference'
 
 export class TetrisGame extends Game {
 
-    constructor(fps, panel = new BoardSize(20, 10), color = '#EFF1E6',acceleration=0.3) {
+    constructor(fps, panel = new BoardSize(20, 10), colors = colorList,acceleration=0.3) {
         const sizes = new BoardSize(panel.height * panel.pixelHeight, panel.width * panel.pixelWidth, panel.pixelHeight, panel.pixelWidth);
         super(fps, sizes);
         this.currPiece = null;
@@ -18,7 +18,7 @@ export class TetrisGame extends Game {
             margin: {top: pieceSize, bottom: 1, left: 1, right: 1},
             bounds: {top: pieceSize, bottom: 1, left: 1, right: 1},
         };
-        this.colors = [color];
+        this.colors = colors;
     }
 
     refresh() {
@@ -27,7 +27,7 @@ export class TetrisGame extends Game {
 
     getRandomPiece() {
         const pieceName = validPieces[Math.floor(Math.random() * validPieces.length)];
-        const color = colors[Math.floor(Math.random() * colors.length)];
+        const color = this.colors[Math.floor(1 + Math.random() *( this.colors.length-1) )];
         const x = Math.floor(Math.random() * (this.panel.size.width - pieceSize));
         return new TetrisPiece(this, pieceName, color, new Location(x, -pieceSize));
     }
@@ -73,7 +73,6 @@ export class TetrisGame extends Game {
         const {location, color} = piece;
         if (this.colors.indexOf(color) < 0) this.colors.push(color);
         const label = this.colors.indexOf(color);
-        console.log(label, color);
         const pieceMap = piece.snapshots[piece.angle];
         for (const y in pieceMap) {
             for (const x in pieceMap[y]) {
