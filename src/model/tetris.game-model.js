@@ -5,13 +5,13 @@ import colorList from '@ref/piece-colors.reference'
 
 export class TetrisGame extends Game {
 
-    constructor(fps, panel = new BoardSize(20, 10), colors = colorList,acceleration=0.3) {
+    constructor(fps, panel = new BoardSize(20, 10), colors = colorList, acceleration = 0.3) {
         const sizes = new BoardSize(panel.height * panel.pixelHeight, panel.width * panel.pixelWidth, panel.pixelHeight, panel.pixelWidth);
         super(fps, sizes);
         this.currPiece = null;
         this.keyListener = new KeyBoardManager();
         this.speed = 1; //1 pos/sec
-        this.acceleration =acceleration ;
+        this.acceleration = acceleration;
         this.panel = {
             size: panel,
             value: [],
@@ -27,7 +27,7 @@ export class TetrisGame extends Game {
 
     getRandomPiece() {
         const pieceName = validPieces[Math.floor(Math.random() * validPieces.length)];
-        const color = this.colors[Math.floor(1 + Math.random() *( this.colors.length-1) )];
+        const color = this.colors[Math.floor(1 + Math.random() * (this.colors.length - 1))];
         const x = Math.floor(Math.random() * (this.panel.size.width - pieceSize));
         return new TetrisPiece(this, pieceName, color, new Location(x, -pieceSize));
     }
@@ -47,6 +47,7 @@ export class TetrisGame extends Game {
                     this.speed += this.acceleration;
                 }
             }
+            this.cleanLines();
             this.currPiece && this.currPiece.draw();
         });
         this.currPiece = this.getRandomPiece();
@@ -131,13 +132,39 @@ export class TetrisGame extends Game {
         return true;
     }
 
+    cleanLines() {
+        if (!this.panel?.value?.length) this.definePanel();
+        const cleanStack = [];
+        const panelMap = [...this.panel.value.map(row=>[...row])];
+        const firstRowTemplate = [...panelMap[0]];
+        for (const y in panelMap) {
+            let isFullFilled = true;
+            let isVisible = false;
+            for (const x in panelMap[y]) {
+                if (!this.isVisible(parseInt(y), parseInt(x))) continue;
+                isFullFilled = isFullFilled && !!panelMap[y][x];
+                isVisible = true;
+            }
+            if (isFullFilled && isVisible) {
+                cleanStack.unshift(y);
+            }
+        }
+        for (const pos of cleanStack) {
+            panelMap.splice(pos, 1)
+        }
+        for (const pos of cleanStack) {
+            panelMap.unshift(firstRowTemplate)
+        }
+        this.panel.value = panelMap
+    }
+
     draw() {
 
         if (!this.panel?.value?.length) this.definePanel();
         const panelMap = this.panel.value;
         for (const y in panelMap) {
             for (const x in panelMap[y]) {
-                if (!this.isVisible(y, x)) continue;
+                if (!this.isVisible(parseInt(y), parseInt(x))) continue;
                 const {x: iX, y: iY} = this.getPosition(y, x);
                 this.ctx.fillStyle = this.colors[panelMap[y][x]];
                 this.ctx.fillRect(
