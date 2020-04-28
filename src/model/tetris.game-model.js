@@ -4,12 +4,13 @@ import {Location, pieceSize, TetrisPiece, validPieces} from "@model/tetris-piece
 
 export class TetrisGame extends Game {
 
-    constructor(fps, panel = new BoardSize(20, 10), color = '#436315') {
+    constructor(fps, panel = new BoardSize(20, 10), color = '#EFF1E6',acceleration=0.3) {
         const sizes = new BoardSize(panel.height * panel.pixelHeight, panel.width * panel.pixelWidth, panel.pixelHeight, panel.pixelWidth);
         super(fps, sizes);
         this.currPiece = null;
         this.keyListener = new KeyBoardManager();
         this.speed = 1; //1 pos/sec
+        this.acceleration =acceleration ;
         this.panel = {
             size: panel,
             value: [],
@@ -37,7 +38,13 @@ export class TetrisGame extends Game {
         super.attachToRefresh(() => {
             if (++updateFrameCounter > Math.floor(this.fps / this.speed)) {
                 updateFrameCounter = 0;
+                const lastY = this.currPiece.location.y;
                 this.currPiece.moveDown();
+                if (lastY === this.currPiece.location.y) {
+                    this.freezePieceLocation(this.currPiece);
+                    this.currPiece = this.getRandomPiece();
+                    this.speed += this.acceleration;
+                }
             }
             this.currPiece && this.currPiece.draw();
         });
@@ -61,6 +68,21 @@ export class TetrisGame extends Game {
         });
     }
 
+    freezePieceLocation(piece) {
+        const {location, color} = piece;
+        if (this.colors.indexOf(color) < 0) this.colors.push(color);
+        const label = this.colors.indexOf(color);
+        console.log(label, color);
+        const pieceMap = piece.snapshots[piece.angle];
+        for (const y in pieceMap) {
+            for (const x in pieceMap[y]) {
+                if (!pieceMap[y][x]) continue;
+                const {x: iX, y: iY} = this.reversePosition(location.y + parseInt(y), location.x + parseInt(x));
+                this.panel.value[iY][iX] = label;
+            }
+        }
+    }
+
     definePanel() {
         if (!this.panel.value?.length)
             this.panel.value = [];
@@ -81,8 +103,6 @@ export class TetrisGame extends Game {
             while (width > row.length) row.push(bottom || row.length <= this.panel.bounds.left || row.length >= this.panel.bounds.right ? 1 : 0);
             this.panel.value.push(row)
         }
-        console.log(this.panel.value);
-        console.log(this.panel.bounds)
     }
 
     isVisible(y, x) {
@@ -95,12 +115,16 @@ export class TetrisGame extends Game {
         return {x: x - this.panel.margin.left, y: y - this.panel.margin.top}
     }
 
+    reversePosition(y, x) {
+        if (!this.panel?.value?.length) this.definePanel();
+        return new Location(x + this.panel.margin.left, y + this.panel.margin.top)
+    }
+
     isValidPosition(location, piece) {
         for (const y in piece) {
             for (const x in piece[y]) {
                 if (!piece[y][x]) continue;
-                const iX = location.x + parseInt(x) + this.panel.margin.left
-                const iY = location.y + parseInt(y) + this.panel.margin.top
+                const {x: iX, y: iY} = this.reversePosition(location.y + parseInt(y), location.x + parseInt(x));
                 if (!this.panel.value[iY] || this.panel.value[iY][iX]) return false
             }
         }
