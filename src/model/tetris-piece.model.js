@@ -63,9 +63,6 @@ export class TetrisPiece {
     draw() {
         const pieceMap = this.snapshots[this.angle];
         if (!pieceMap) throw new Error(`Invalid Piece type found ${this.type}`);
-
-        if (!this.game.isValidPosition(this.location, pieceMap))
-            console.log(`Invalid piece at ${this.location.x}x${this.location.y}`)
         for (const y in pieceMap) {
             for (const x in pieceMap[y]) {
                 if (!pieceMap[y][x]) continue;
