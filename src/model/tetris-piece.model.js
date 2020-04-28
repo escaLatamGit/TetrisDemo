@@ -3,6 +3,7 @@ import pieces from '@ref/tetris-pieces.reference';
 
 export const pieceSize = Object.values(pieces)[0].length;
 export const validPieces = Object.keys(pieces);
+
 export class Location {
     constructor(x = 0, y = 0) {
         this.x = x;
@@ -25,12 +26,19 @@ export class TetrisPiece {
         this.color = color;
     }
 
-    move(xInc = 0, yInc = 0) {
-        if (xInc)
-            this.location.x += xInc;
-        if (yInc)
-            this.location.y += yInc;
+    isValidState(location, piece) {
+        return this.game.isValidPosition(location, piece)
+    }
 
+    nextPosition(xInc, yInc) {
+        const {x, y} = this.location
+        return new Location(x + xInc || 0, y + yInc || 0)
+    }
+
+    move(xInc = 0, yInc = 0) {
+        const loc = this.nextPosition(xInc, yInc)
+        if (!this.isValidState(loc, this.snapshots[this.angle])) return
+        this.location = loc
     }
 
     moveLeft(inc = 1) {
@@ -55,13 +63,16 @@ export class TetrisPiece {
     draw() {
         const pieceMap = this.snapshots[this.angle];
         if (!pieceMap) throw new Error(`Invalid Piece type found ${this.type}`);
+
+        if (!this.game.isValidPosition(this.location, pieceMap))
+            console.log(`Invalid piece at ${this.location.x}x${this.location.y}`)
         for (const y in pieceMap) {
             for (const x in pieceMap[y]) {
                 if (!pieceMap[y][x]) continue;
                 this.game.ctx.fillStyle = this.color;
                 this.game.ctx.fillRect(
-                     (this.location.x + parseInt(x) ) * this.game.sizes.pixelWidth,
-                     (this.location.y + parseInt(y) ) * this.game.sizes.pixelHeight,
+                    (this.location.x + parseInt(x)) * this.game.sizes.pixelWidth,
+                    (this.location.y + parseInt(y)) * this.game.sizes.pixelHeight,
                     this.game.sizes.pixelWidth,
                     this.game.sizes.pixelHeight)
 
@@ -69,10 +80,16 @@ export class TetrisPiece {
         }
     }
 
-    rotate(clockwise = true) {
+    nextRotationState(clockwise = true) {
         let angle = this.angle + (clockwise ? 1 : -1);
         if (angle < 0) angle = angle + 4;
-        this.angle = angle % 4;
+        return angle % 4;
+    }
+
+    rotate(clockwise = true) {
+        const angle = this.nextRotationState(clockwise)
+        if (!this.isValidState(this.location, this.snapshots[angle])) return
+        this.angle = angle
         return this.angle;
     }
 
