@@ -1,6 +1,7 @@
 import {BoardSize, Game} from "@model/game.model";
 import {KeyBoardManager} from "@model/key-board-manager.model";
 import {Location, pieceSize, TetrisPiece, validPieces} from "@model/tetris-piece.model";
+import colors from '@ref/piece-colors.reference'
 
 export class TetrisGame extends Game {
 
@@ -17,7 +18,7 @@ export class TetrisGame extends Game {
             margin: {top: pieceSize, bottom: 1, left: 1, right: 1},
             bounds: {top: pieceSize, bottom: 1, left: 1, right: 1},
         };
-        this.color = color
+        this.colors = [color];
     }
 
     refresh() {
@@ -25,10 +26,10 @@ export class TetrisGame extends Game {
     }
 
     getRandomPiece() {
-
         const pieceName = validPieces[Math.floor(Math.random() * validPieces.length)];
+        const color = colors[Math.floor(Math.random() * colors.length)];
         const x = Math.floor(Math.random() * (this.panel.size.width - pieceSize));
-        return new TetrisPiece(this, pieceName, 'purple', new Location(x, -pieceSize));
+        return new TetrisPiece(this, pieceName, color, new Location(x, -pieceSize));
     }
 
     init(containerSelector, canvasSelector) {
@@ -137,10 +138,9 @@ export class TetrisGame extends Game {
         const panelMap = this.panel.value;
         for (const y in panelMap) {
             for (const x in panelMap[y]) {
-                if (!panelMap[y][x] || !this.isVisible(y, x)) continue;
+                if (!this.isVisible(y, x)) continue;
                 const {x: iX, y: iY} = this.getPosition(y, x);
-                // console.log({x, y, iX, iY});
-                this.ctx.fillStyle = this.color;
+                this.ctx.fillStyle = this.colors[panelMap[y][x]];
                 this.ctx.fillRect(
                     (iX) * this.sizes.pixelWidth,
                     (iY) * this.sizes.pixelHeight,
