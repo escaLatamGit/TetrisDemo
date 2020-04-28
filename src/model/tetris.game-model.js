@@ -27,7 +27,7 @@ export class TetrisGame extends Game {
 
         const pieceName = validPieces[Math.floor(Math.random() * validPieces.length)];
         const x = Math.floor(Math.random() * (this.panel.size.width - pieceSize));
-        return new TetrisPiece(this, pieceName, 'purple', new Location(x, 0));
+        return new TetrisPiece(this, pieceName, 'purple', new Location(x, -pieceSize));
     }
 
     init(containerSelector, canvasSelector) {
