@@ -9,6 +9,7 @@ export class TetrisGame extends Game {
         super(fps, sizes);
         this.currPiece = null;
         this.keyListener = new KeyBoardManager();
+        this.speed = 1; //1 pos/sec
         this.panel = {
             size: panel,
             value: [],
@@ -21,16 +22,25 @@ export class TetrisGame extends Game {
     refresh() {
         super.refresh();
     }
-    getRandomPiece(){
 
-        const pieceName = validPieces[Math.floor(Math.random()*validPieces.length)];
-        const x = Math.floor(Math.random()*(this.panel.size.width-pieceSize));
-        return  new TetrisPiece(this, pieceName, 'purple', new Location(x, 0));
+    getRandomPiece() {
+
+        const pieceName = validPieces[Math.floor(Math.random() * validPieces.length)];
+        const x = Math.floor(Math.random() * (this.panel.size.width - pieceSize));
+        return new TetrisPiece(this, pieceName, 'purple', new Location(x, 0));
     }
+
     init(containerSelector, canvasSelector) {
         super.init(containerSelector, canvasSelector);
         super.attachToRefresh(() => this.draw());
-        super.attachToRefresh(() => this.currPiece && this.currPiece.draw());
+        let updateFrameCounter = 0;
+        super.attachToRefresh(() => {
+            if (++updateFrameCounter > Math.floor(this.fps / this.speed)) {
+                updateFrameCounter = 0;
+                this.currPiece.moveDown();
+            }
+            this.currPiece && this.currPiece.draw();
+        });
         this.currPiece = this.getRandomPiece();
         this.keyListener.init();
         this.keyListener.addListener('keydown', 'ArrowUp', () => {
@@ -61,7 +71,7 @@ export class TetrisGame extends Game {
         this.panel.bounds = {
             top: margin.top - 1,
             bottom: height - margin.bottom,
-            left: margin.left -1,
+            left: margin.left - 1,
             right: width - margin.right
         };
 
@@ -82,7 +92,7 @@ export class TetrisGame extends Game {
 
     getPosition(y, x) {
         if (!this.panel?.value?.length) this.definePanel();
-        return {x: x - this.panel.margin.left    , y: y - this.panel.margin.top    }
+        return {x: x - this.panel.margin.left, y: y - this.panel.margin.top}
     }
 
     draw() {
