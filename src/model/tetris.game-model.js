@@ -95,6 +95,18 @@ export class TetrisGame extends Game {
         return {x: x - this.panel.margin.left, y: y - this.panel.margin.top}
     }
 
+    isValidPosition(location, piece) {
+        for (const y in piece) {
+            for (const x in piece[y]) {
+                if (!piece[y][x]) continue;
+                const iX = location.x + parseInt(x) + this.panel.margin.left
+                const iY = location.y + parseInt(y) + this.panel.margin.top
+                if (!this.panel.value[iY] || this.panel.value[iY][iX]) return false
+            }
+        }
+        return true;
+    }
+
     draw() {
 
         if (!this.panel?.value?.length) this.definePanel();
