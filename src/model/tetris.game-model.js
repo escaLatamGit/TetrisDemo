@@ -19,36 +19,81 @@ export class TetrisGame extends Game {
             bounds: {top: pieceSize, bottom: 1, left: 1, right: 1},
         };
         this.colors = colors;
+        this.score = 0;
+        this.gameEnd = false;
     }
 
     refresh() {
         super.refresh();
     }
 
+    reset() {
+        this.currPiece = null;
+        this.speed = 1;
+        this.panel.value = [];
+        this.score = 0;
+        this.gameEnd = false;
+    }
+
+    getRandomColor() {
+        return this.colors[Math.floor(1 + Math.random() * (this.colors.length - 1))];
+    }
+
+    getRandomPieceName() {
+        return validPieces[Math.floor(Math.random() * validPieces.length)];
+    }
+
     getRandomPiece() {
-        const pieceName = validPieces[Math.floor(Math.random() * validPieces.length)];
-        const color = this.colors[Math.floor(1 + Math.random() * (this.colors.length - 1))];
+        let pieceName = this.getRandomPieceName();
+        while (this.currPiece && pieceName === this.currPiece.type) {
+            pieceName = this.getRandomPieceName();
+        }
+        let color = this.getRandomColor();
+        while (this.currPiece && color === this.currPiece.color) {
+            color = this.getRandomColor();
+        }
         const x = Math.floor(Math.random() * (this.panel.size.width - pieceSize));
         return new TetrisPiece(this, pieceName, color, new Location(x, -pieceSize));
     }
+
 
     init(containerSelector, canvasSelector) {
         super.init(containerSelector, canvasSelector);
         super.attachToRefresh(() => this.draw());
         let updateFrameCounter = 0;
         super.attachToRefresh(() => {
+            if (this.gameEnd) return;
             if (++updateFrameCounter > Math.floor(this.fps / this.speed)) {
                 updateFrameCounter = 0;
                 const lastY = this.currPiece.location.y;
                 this.currPiece.moveDown();
+                this.currPiece && this.currPiece.draw();
                 if (lastY === this.currPiece.location.y) {
                     this.freezePieceLocation(this.currPiece);
+                    this.isOver();
                     this.currPiece = this.getRandomPiece();
                     this.speed += this.acceleration;
+                    const lineCount = this.resolveMatches();
+                    if (lineCount) {
+                        this.score += Math.floor(lineCount * this.speed);
+                        console.log(this.score)
+                    }
                 }
             }
-            this.cleanLines();
             this.currPiece && this.currPiece.draw();
+        });
+        super.attachToRefresh(() => {
+            if (!this.gameEnd) return;
+            if (++updateFrameCounter > Math.floor(this.fps / this.speed)) {
+                const panelMap = this.panel.value;
+                for (const y in panelMap) {
+                    for (const x in panelMap[y]) {
+                        if (!this.isVisible(parseInt(y), parseInt(x))) continue;
+                        this.panel.value[y][x] = this.colors.indexOf(this.getRandomColor());
+
+                    }
+                }
+            }
         });
         this.currPiece = this.getRandomPiece();
         this.keyListener.init();
@@ -68,6 +113,15 @@ export class TetrisGame extends Game {
             if (!this.currPiece) return;
             this.currPiece.moveRight();
         });
+    }
+
+    isOver() {
+        if (this.gameEnd) return this.gameEnd;
+
+        const limit = this.panel.value[this.panel.bounds.top];
+        const bounds = this.panel.bounds;
+        this.gameEnd = limit.map((val, x) => (x > bounds.left && x < bounds.right && val > 0)).reduce((all, val) => all || val, false);
+        return this.gameEnd;
     }
 
     freezePieceLocation(piece) {
@@ -132,10 +186,10 @@ export class TetrisGame extends Game {
         return true;
     }
 
-    cleanLines() {
+    resolveMatches() {
         if (!this.panel?.value?.length) this.definePanel();
         const cleanStack = [];
-        const panelMap = [...this.panel.value.map(row=>[...row])];
+        const panelMap = [...this.panel.value.map(row => [...row])];
         const firstRowTemplate = [...panelMap[0]];
         for (const y in panelMap) {
             let isFullFilled = true;
@@ -155,7 +209,8 @@ export class TetrisGame extends Game {
         for (const pos of cleanStack) {
             panelMap.unshift(firstRowTemplate)
         }
-        this.panel.value = panelMap
+        this.panel.value = panelMap;
+        return cleanStack.length;
     }
 
     draw() {
