@@ -64,7 +64,7 @@ module.exports = {
         extensions: ['*', '.js'],
         alias: {
             '@model': path.resolve(__dirname, 'src/model/'),
-            '@styles': path.resolve(__dirname, 'src/styles/'),
+            '@style': path.resolve(__dirname, 'src/asset/style/'),
             '@ref': path.resolve(__dirname, 'src/reference/')
         }
     },
