@@ -1,7 +1,7 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const path = require('path');
 module.exports = {
-    target : "web",
+    target: "web",
     module: {
         rules: [
             {
@@ -51,7 +51,16 @@ module.exports = {
                         loader: 'sass-loader'
                     }
                 ]
-            }
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/i,
+                use: [
+                    'file-loader',
+                ],
+                options:{
+                outputPath: 'img/',
+                publicPath: 'img/'}
+            },
         ]
     },
     plugins: [
@@ -65,11 +74,12 @@ module.exports = {
         alias: {
             '@model': path.resolve(__dirname, 'src/model/'),
             '@style': path.resolve(__dirname, 'src/asset/style/'),
+            '@image': path.resolve(__dirname, 'src/asset/image/'),
             '@ref': path.resolve(__dirname, 'src/reference/')
         }
     },
     output: {
-        path: path.resolve(__dirname,'/dist'),
+        path: path.resolve(__dirname, '/dist'),
         publicPath: '/',
         filename: 'bundle.js'
     },
