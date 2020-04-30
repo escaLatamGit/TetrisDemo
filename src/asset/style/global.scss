@@ -1,17 +1,35 @@
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
 
+@font-face {
+  font-family: 'RetroArcade';
+  src: url('../font/Intro-Free/WEB/IntroDemo-BlackInlineCAPS.eot');
+  src: url('../font/Intro-Free/WEB/IntroDemo-BlackInlineCAPS.eot?#iefix') format('embedded-opentype'),
+  url('../font/Intro-Free/WEB/IntroDemo-BlackInlineCAPS.woff2') format('woff2'),
+  url('../font/Intro-Free/WEB/IntroDemo-BlackInlineCAPS.woff') format('woff'),
+  url('../font/Intro-Free/TTF/IntroDemo-BlackInlineCAPS.ttf')  format('truetype');
+  font-weight: 800;
+  font-style: normal;
+
+}
 
 .game-canvas {
   border: 2px solid $primary;
   background-color: $body-bg;
 
 }
+
 .game-container {
   margin: 10px;
   padding: 10px;
 }
 
 #logo {
-  filter: drop-shadow(0 0 5px  $secondary);
+  margin-right: 10px;
+  filter: drop-shadow(0 0 5px $secondary);
+}
+
+.navbar-brand > span {
+  color: $title-accent;
+  font: 30px 'RetroArcade', 'Roboto', 'SansSerif', serif;
 }
