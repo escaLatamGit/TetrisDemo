@@ -26,10 +26,18 @@
 
 #logo {
   margin-right: 10px;
-  filter: drop-shadow(0 0 5px $secondary);
+  filter: drop-shadow(-$logo-mg $logo-mg 0px $logo-shadow)
+ drop-shadow(-$logo-mg $logo-mg 0px $logo-accent)
+  drop-shadow(0 0 3*$logo-mg $logo-accent);
 }
-
 .navbar-brand > span {
-  color: $title-accent;
+  color: $title;
+  text-shadow: -$title-mg $title-mg 0px $title-accent,
+  -2*$title-mg 2*$title-mg 0px $title-shadow;
   font: 30px 'RetroArcade', 'Roboto', 'SansSerif', serif;
+}
+canvas{
+  margin: auto;
+  margin-top: 100px;
+  display: block;
 }
