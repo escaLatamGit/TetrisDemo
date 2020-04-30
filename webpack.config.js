@@ -55,12 +55,19 @@ module.exports = {
             {
                 test: /\.(png|svg|jpg|gif)$/i,
                 use: [
-                    'file-loader',
-                ],
-                options:{
-                outputPath: 'img/',
-                publicPath: 'img/'}
+                    {
+                        loader: 'file-loader'
+                    },
+                ]
             },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                use: [
+                    {
+                        loader: 'file-loader'
+                    },
+                ]
+            }
         ]
     },
     plugins: [
