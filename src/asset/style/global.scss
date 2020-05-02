@@ -13,29 +13,7 @@
 
 }
 
-.game-canvas {
-  border: 2px solid $tv-base-color;
-  background-color: $body-bg;
-  border: 5px solid $tv-border-color;
-  border-radius: 5%/10%;
-}
-
-.game-container {
-  background-color: $tv-base-color;
-  border: 2px solid $primary;
-  margin: 10px;
-  margin-top: 200px;
-  padding: 10px;
-  padding-right: 80px;
-  border: 5px solid $tv-border-color;
-  border-radius: 5% 25% 5% 5%;
-
-}
-.controllers-container {
-  display: inline-block;
-  color: #FEFFEC;
-}
-
+// NavBar Properties
 #logo {
   margin-right: 10px;
   filter: drop-shadow(-$logo-mg $logo-mg 0px $logo-shadow) drop-shadow(-$logo-mg $logo-mg 0px $logo-accent) drop-shadow(0 0 3*$logo-mg $logo-accent);
@@ -48,8 +26,74 @@
   font: 30px 'RetroArcade', 'Roboto', 'SansSerif', serif;
 }
 
-canvas {
+//TV Model Properties
+
+.game-canvas {
+  position: relative;
+  background-color: $body-bg;
+  border: 5px solid $tv-border-color;
+  border-radius: 2%;
   margin: auto;
-  margin-top: auto;
   display: block;
+}
+
+.tv-body {
+  background-color: $tv-base-color;
+  padding: 10px;
+  border: 5px solid $tv-border-color;
+  position: relative;
+  display: block;
+  margin: 10px;
+  border-radius: 50% / 10%;
+}
+
+//.tv-body:before {
+//   content: "";
+//   position: absolute;
+//   top: -1%;
+//   bottom: -1%;
+//   right: -3%;
+//   left: -3%;
+//   background: inherit;
+//   border-radius: 5% / 50%;
+// }
+
+.tv-screen {
+  background: $tv-border-color;
+  position: relative;
+  margin: 5%;
+  border-radius: 50% / 10%;
+}
+
+.tv-screen:before {
+  content: "";
+  position: absolute;
+  top: -1%;
+  bottom: -1%;
+  right: -5%;
+  left: -5%;
+  background: inherit;
+  border-radius: 5% / 50%;
+}
+
+.tv-controls {
+  width: 10vw;
+  border-radius: 5px;
+  margin: 60px 10px;
+  background-color: #FEFFEC;
+}
+
+
+// CSS Helpers
+.w-fluid {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.vertical-center {
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }

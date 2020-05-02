@@ -13,5 +13,5 @@ $logo-shadow: #FD9A01;
 $logo-accent: #690404;
 
 // TV Scheme Color
-$tv-base-color: #2d0303;
-$tv-border-color:white;
+$tv-base-color: $primary;
+$tv-border-color: $body-bg;
