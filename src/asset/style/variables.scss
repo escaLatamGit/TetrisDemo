@@ -1,4 +1,4 @@
-$body-bg: #FEFFEC;
+$body-bg: #d3d3d3;
 $primary: #D63940;
 $secondary: #5E1D53;
 $danger: #F4633C;
@@ -7,11 +7,17 @@ $danger: #F4633C;
 $title: #FEF001;
 $title-accent: #FD9A01;
 $title-shadow: #690404;
-$title-mg:2px;
-$logo-mg:2px;
+$title-mg: 2px;
+$logo-mg: 2px;
 $logo-shadow: #FD9A01;
 $logo-accent: #690404;
 
 // TV Scheme Color
-$tv-base-color: $primary;
+$tv-base-color: #9a9a9a;
+$tv-back-color: #333333;
 $tv-border-color: $body-bg;
+$tv-accent-color: $primary;
+$tv-accent-color-2: $title-accent;
+$tv-control-color: $secondary;
+
+

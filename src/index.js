@@ -4,10 +4,12 @@ import {TetrisGame} from "@model/tetris.game-model";
 import {pieceSize} from "@model/tetris-piece.model";
 
 const fps = 50;
-const BaseBlocks = 10;
-const HeightBlocks = 10;
-const pixel = Math.floor(window.innerHeight / (HeightBlocks * pieceSize) * 0.5);
-const sizes = new BoardSize(HeightBlocks * pieceSize, BaseBlocks * pieceSize, pixel, pixel);
+const pixel = 10;
+const container = document.querySelector(".tv-screen");
+const width = Math.floor( (container.offsetWidth-40)/pieceSize/pixel)*pieceSize*pixel;
+const height = width;
+console.log(height / pixel, width / pixel);
+const sizes = new BoardSize(height / pixel, width / pixel, pixel, pixel);
 const gameInstance = new TetrisGame(fps, sizes);
 
 
