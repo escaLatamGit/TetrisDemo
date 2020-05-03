@@ -18,10 +18,7 @@ export class Game {
         this.fpsAttach = []
     }
 
-    init(containerSelector, canvasSelector) {
-
-        const container = document.querySelector(containerSelector);
-        if (!container) throw new Error(`DOM Element Not Found ${containerSelector}`);
+    init(canvasSelector) {
 
         const canvas = document.querySelector(canvasSelector);
         if (!canvas) throw new Error(`DOM Element Not Found ${canvasSelector}`);

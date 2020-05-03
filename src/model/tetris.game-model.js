@@ -57,8 +57,8 @@ export class TetrisGame extends Game {
     }
 
 
-    init(containerSelector, canvasSelector) {
-        super.init(containerSelector, canvasSelector);
+    init(canvasSelector) {
+        super.init(canvasSelector);
         super.attachToRefresh(() => this.draw());
         let updateFrameCounter = 0;
         super.attachToRefresh(() => {

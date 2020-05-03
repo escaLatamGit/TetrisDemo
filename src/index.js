@@ -12,7 +12,7 @@ const init = function () {
     console.log(height / pixel, width / pixel);
     const sizes = new BoardSize(height / pixel, width / pixel, pixel, pixel);
     const gameInstance = new TetrisGame(fps, sizes);
-    gameInstance.init("#game-container", "#game-canvas");
+    gameInstance.init( "#game-canvas");
 };
 init();
 document.addEventListener('resize', function () {
