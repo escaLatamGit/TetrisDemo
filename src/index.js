@@ -19,6 +19,10 @@ const container = document.querySelector(".tv-screen");
 const endListener = ({gameEnd} = {gameEnd: true}) => {
     gameState.gameEnd = gameEnd;
     btnContainer.innerHTML = gameEnd ? 'On' : 'Off';
+    console.log(  btnContainer.classList);
+    btnContainer.classList.remove(gameEnd ? 'tv-off' : 'tv-on');
+    btnContainer.classList.add(gameEnd ? 'tv-on' : 'tv-off');
+    console.log(  btnContainer.classList);
 }
 
 const scoreListener = ({score}) => {
@@ -35,6 +39,7 @@ const startGame = function () {
         return;
     }
     instance.gameEnd = true;
+    endListener(instance);
 };
 const load = function () {
     const width = Math.floor((container.offsetWidth - 40) / pieceSize / pixel) * pieceSize * pixel;
@@ -55,7 +60,7 @@ const start = function () {
     gameInstance.addStateChangeListener(scoreListener);
     gameInstance.addStateChangeListener(endListener);
     scoreListener({score: '0000'});
-    endListener();
+    endListener(gameInstance);
     gameInstance.start();
     return gameInstance;
 };
