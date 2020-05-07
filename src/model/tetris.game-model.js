@@ -21,6 +21,7 @@ export class TetrisGame extends Game {
         this.colors = colors;
         this.score = 0;
         this.gameEnd = false;
+        this._stateListener = [];
     }
 
     refresh() {
@@ -62,6 +63,14 @@ export class TetrisGame extends Game {
         super.destroy();
     }
 
+    addStateChangeListener(listener) {
+        this._stateListener.push(listener)
+    }
+
+    onStateChange() {
+        this._stateListener?.forEach((listener) => listener(this))
+    }
+
     init(canvasSelector) {
         super.init(canvasSelector);
         super.attachToRefresh(() => this.draw());
@@ -75,13 +84,14 @@ export class TetrisGame extends Game {
                 this.currPiece && this.currPiece.draw();
                 if (lastY === this.currPiece.location.y) {
                     this.freezePieceLocation(this.currPiece);
-                    this.isOver();
+                    if (this.isOver())
+                        this.onStateChange();
                     this.currPiece = this.getRandomPiece();
                     this.speed += this.acceleration;
                     const lineCount = this.resolveMatches();
                     if (lineCount) {
                         this.score += Math.floor(lineCount * this.speed);
-                        console.log(this.score)
+                        this.onStateChange();
                     }
                 }
             }
