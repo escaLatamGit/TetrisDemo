@@ -5,9 +5,9 @@ import colorList from '@ref/piece-colors.reference'
 
 export class TetrisGame extends Game {
 
-    constructor(fps, panel = new BoardSize(20, 10), colors = colorList, acceleration = 0.3) {
+    constructor(canvas, fps, panel = new BoardSize(20, 10), colors = colorList, acceleration = 0.3) {
         const sizes = new BoardSize(panel.height * panel.pixelHeight, panel.width * panel.pixelWidth, panel.pixelHeight, panel.pixelWidth);
-        super(fps, sizes);
+        super(canvas, fps, sizes);
         this.currPiece = null;
         this.keyListener = new KeyBoardManager();
         this.speed = 1; //1 pos/sec
@@ -22,10 +22,6 @@ export class TetrisGame extends Game {
         this.score = 0;
         this.gameEnd = false;
         this._stateListener = [];
-    }
-
-    refresh() {
-        super.refresh();
     }
 
     reset() {
@@ -71,8 +67,8 @@ export class TetrisGame extends Game {
         this._stateListener?.forEach((listener) => listener(this))
     }
 
-    init(canvasSelector) {
-        super.init(canvasSelector);
+    start() {
+        super.start();
         super.attachToRefresh(() => this.draw());
         let updateFrameCounter = 0;
         super.attachToRefresh(() => {

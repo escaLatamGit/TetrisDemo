@@ -9,7 +9,7 @@ export class BoardSize {
 
 export class Game {
 
-    constructor(fps, boardSize = new BoardSize()) {
+    constructor(canvasSelector, fps, boardSize = new BoardSize()) {
         this._id = 0;
         this.fps = fps;
         this.canvas = null;
@@ -17,18 +17,23 @@ export class Game {
         this.sizes = boardSize;
         this.fpsAttach = [];
         this._interval = null;
+        this._canvasSelector = canvasSelector;
     }
 
-    init(canvasSelector) {
+    init() {
+        if (!this.canvas) {
+            const canvas = document.querySelector(this._canvasSelector);
+            if (!canvas) throw new Error(`DOM Element Not Found ${this._canvasSelector}`);
+            this.canvas = canvas;
+            this.ctx = canvas.getContext('2d');
+        }
+        this.refresh()
+    }
 
-        const canvas = document.querySelector(canvasSelector);
-        if (!canvas) throw new Error(`DOM Element Not Found ${canvasSelector}`);
-        this.canvas = canvas;
-        this.ctx = canvas.getContext('2d');
-        this.refresh();
+    start() {
+        this.init();
         const self = this;
         this._interval = setInterval(() => self.refresh(), 1000 / self.fps)
-
     }
 
     destroy() {
