@@ -136,6 +136,36 @@
     padding: 2px;
   }
 }
+@include media-breakpoint-up(sm) {
+  .game-canvas {
+    border-radius: 5px;
+    padding: 2px;
+  } 
+  
+  .tv-body {
+    -webkit-animation: tvShadow 2s infinite alternate;
+    -moz-animation:    tvShadow 1s infinite alternate;
+    -o-animation:      tvShadow 1s infinite alternate;
+    animation:         tvShadow 1s infinite alternate;
+  }
+
+  @-webkit-keyframes tvShadow {
+    0%   { box-shadow: 0 0 50px 0 $tv-back-color; }
+    100% { box-shadow: 0 0 10px 0 $tv-accent-color; }
+  }
+  @-moz-keyframes tvShadow {
+    0%   { box-shadow: 0 0 50px 0 $tv-back-color; }
+    100% { box-shadow: 0 0 10px 0 $tv-accent-color; }
+  }
+  @-o-keyframes tvShadow {
+    0%   { box-shadow: 0 0 50px 0 $tv-back-color; }
+    100% { box-shadow: 0 0 10px 0 $tv-accent-color; }
+  }
+  @keyframes tvShadow {
+    0%   { box-shadow: 0 0 50px 0 $tv-back-color; }
+    100% { box-shadow: 0 0 10px 0 $tv-accent-color; }
+  }
+}
 
 // CSS Helpers
 .w-fluid {
