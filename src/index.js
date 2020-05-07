@@ -5,41 +5,56 @@ import {pieceSize} from "@model/tetris-piece.model";
 
 let instance;
 let resizeTrigger;
+let gameState = {
+    started: false,
+    score: 0,
+    gameEnd: false
+};
 const fps = 50;
 const pixel = 30;
+const btnContainer = document.querySelector("#start-btn");
+const scoreContainer = document.querySelector("#score-container");
+const container = document.querySelector(".tv-screen");
 
 const endListener = ({gameEnd} = {gameEnd: true}) => {
-    const btnContainer = document.querySelector("#start-btn");
-    btnContainer.innerHTML = gameEnd?'On':'Off';
+    gameState.gameEnd = gameEnd;
+    btnContainer.innerHTML = gameEnd ? 'On' : 'Off';
 }
 
 const scoreListener = ({score}) => {
-    const scoreContainer = document.querySelector("#score-container");
     scoreContainer.innerHTML = score;
 };
 
+const startGame = function () {
+    if (!gameState.started || instance.gameEnd) {
+        gameState.started = true;
+        gameState.gameEnd = false;
+        gameState.score = 0;
+        if (instance) instance.destroy();
+        instance = start();
+        return;
+    }
+    instance.gameEnd = true;
+};
 const load = function () {
-    const container = document.querySelector(".tv-screen");
     const width = Math.floor((container.offsetWidth - 40) / pieceSize / pixel) * pieceSize * pixel;
     const sizes = new BoardSize(width / pixel, width / pixel, pixel, pixel);
-    const gameInstance = new TetrisGame("#game-canvas",fps, sizes);
+    const gameInstance = new TetrisGame("#game-canvas", fps, sizes);
     gameInstance.addStateChangeListener(scoreListener);
     gameInstance.addStateChangeListener(endListener);
-    scoreListener({score:'0000'});
+    scoreListener({score: '0000'});
     endListener();
     gameInstance.init();
-    instance = gameInstance;
 }
-
-
 const start = function () {
-    const container = document.querySelector(".tv-screen");
-    const width = Math.floor((container.offsetWidth - 40) / pieceSize / pixel) * pieceSize * pixel;
-    const sizes = new BoardSize(width / pixel, width / pixel, pixel, pixel);
-    const gameInstance = new TetrisGame("#game-canvas",fps, sizes);
+    gameState.started = true;
+    const width = Math.floor((container.offsetWidth) / pieceSize / pixel) * pieceSize * pixel;
+    const height = Math.floor((container.offsetHeight) / pieceSize / pixel) * pieceSize * pixel;
+    const sizes = new BoardSize(height / pixel, width / pixel, pixel, pixel);
+    const gameInstance = new TetrisGame("#game-canvas", fps, sizes);
     gameInstance.addStateChangeListener(scoreListener);
     gameInstance.addStateChangeListener(endListener);
-    scoreListener({score:'0000'});
+    scoreListener({score: '0000'});
     endListener();
     gameInstance.start();
     return gameInstance;
@@ -60,3 +75,5 @@ window.addEventListener('resize', function () {
 });
 
 load();
+
+btnContainer.addEventListener('click', startGame)
