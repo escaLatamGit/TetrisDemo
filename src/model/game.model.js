@@ -15,7 +15,8 @@ export class Game {
         this.canvas = null;
         this.ctx = null;
         this.sizes = boardSize;
-        this.fpsAttach = []
+        this.fpsAttach = [];
+        this._interval = null;
     }
 
     init(canvasSelector) {
@@ -26,8 +27,18 @@ export class Game {
         this.ctx = canvas.getContext('2d');
         this.refresh();
         const self = this;
-        setInterval(() => self.refresh(), 1000 / self.fps)
+        this._interval = setInterval(() => self.refresh(), 1000 / self.fps)
 
+    }
+
+    destroy() {
+        this._id = 0;
+        this.fps = null;
+        this.canvas = null;
+        this.ctx = null;
+        this.fpsAttach = [];
+        if (this._interval)
+            clearInterval(this._interval)
     }
 
     refresh() {

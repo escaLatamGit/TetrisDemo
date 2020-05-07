@@ -57,6 +57,11 @@ export class TetrisGame extends Game {
     }
 
 
+    destroy(canvasSelector) {
+        this.keyListener.destroy();
+        super.destroy();
+    }
+
     init(canvasSelector) {
         super.init(canvasSelector);
         super.attachToRefresh(() => this.draw());

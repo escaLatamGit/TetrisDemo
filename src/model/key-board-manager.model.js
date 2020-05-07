@@ -29,6 +29,14 @@ export class KeyBoardManager {
         })
     }
 
+    destroy() {
+        Object.keys(this.keyListeners).forEach((eventName) => {
+            document.removeEventListener(eventName, (event) => {
+                this.resolve(eventName, event)
+            })
+        })
+    }
+
     resolve(type, event) {
         const stack = this.keyListeners[type][event.key] || [];
         Object.values(stack).forEach(callback => callback(event))
