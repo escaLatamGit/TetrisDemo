@@ -3,14 +3,21 @@
 
 @font-face {
   font-family: 'RetroArcade';
-  src: url('../font/Intro-Free/WEB/IntroDemo-BlackInlineCAPS.eot');
-  src: url('../font/Intro-Free/WEB/IntroDemo-BlackInlineCAPS.eot?#iefix') format('embedded-opentype'),
-  url('../font/Intro-Free/WEB/IntroDemo-BlackInlineCAPS.woff2') format('woff2'),
-  url('../font/Intro-Free/WEB/IntroDemo-BlackInlineCAPS.woff') format('woff'),
-  url('../font/Intro-Free/TTF/IntroDemo-BlackInlineCAPS.ttf') format('truetype');
+  src: url('../font/Intro/WEB/IntroDemo-BlackInlineCAPS.eot');
+  src: url('../font/Intro/WEB/IntroDemo-BlackInlineCAPS.eot?#iefix') format('embedded-opentype'),
+  url('../font/Intro/WEB/IntroDemo-BlackInlineCAPS.woff2') format('woff2'),
+  url('../font/Intro/WEB/IntroDemo-BlackInlineCAPS.woff') format('woff'),
+  url('../font/Intro/TTF/IntroDemo-BlackInlineCAPS.ttf') format('truetype');
   font-weight: 800;
   font-style: normal;
+}
 
+@font-face {
+  font-family: 'LCD';
+  src: url('../font/lcd/lcddot.woff') format('woff'),
+  url('../font/lcd/elektra.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
 }
 
 // NavBar Properties
@@ -53,6 +60,24 @@
   border-radius: 5px;
 }
 
+.tv-channel {
+  transition: all 100ms ease-in-out;
+  background: $tv-back-color;
+  border: 2px solid $tv-back-color;
+  margin: 10px;
+  padding: 2px;
+  border-radius: 5px;
+  color: $tv-accent-color;
+  text-align: center;
+  font: 30px 'LCD','RetroArcade', 'Roboto', 'SansSerif', serif;
+}
+
+.tv-channel:hover {
+  color: $tv-back-color;
+  background: $tv-accent-color;
+}
+
+
 .tv-controls {
   display: inline-block;
   height: calc(100% - 2 * 10px);
@@ -94,11 +119,12 @@
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  background-color:  $tv-accent-color;
+  background-color: $tv-accent-color;
   border: solid 1px $tv-border-color;
 }
+
 .tv-control-inner-dot {
-  margin:  auto;
+  margin: auto;
   height: 10px;
   width: 10px;
   border-radius: 50%;

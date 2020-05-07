@@ -13,20 +13,22 @@
 </nav>
 <div class="container-fluid vertical-center">
     <div class="w-fluid row justify-content-center">
-        <div class="col-3 align-self-center">
+        <div class="d-none d-md-block col-md-3 align-self-center">
             <div class="card card-body">__helpers__</div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6">
             <div class="tv-body" id="game-container">
                 <div class="w-fluid row mx-0 my-0">
-                    <div class="col-9 tv-screen">
+                    <div class="col-md-9 tv-screen">
                         <canvas id="game-canvas" class="game-canvas"></canvas>
                     </div>
-                    <div class="col-3">
+                    <div class="col-md-3">
 
                         <div class="tv-controls">
-
-                            <div class="tv-grid-line-layout">
+                            <div id="score-container" class="tv-channel">
+                                null
+                            </div>
+                            <div class="d-none d-md-block tv-grid-line-layout">
                                 <div class="tv-control-dot">
                                     <div class="tv-control-inner-dot"></div>
                                 </div>
@@ -34,7 +36,7 @@
                                     <div class="tv-control-inner-dot"></div>
                                 </div>
                             </div>
-                            <div class="tv-grid-line-layout">
+                            <div class="d-none d-md-block tv-grid-line-layout">
                                 <div class="tv-grid-line"></div>
                                 <div class="tv-grid-line"></div>
                                 <div class="tv-grid-line"></div>
@@ -48,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-3 align-self-center">
+        <div class="d-none d-md-block col-md-3 align-self-center">
             <div class="card card-body">__helpers__</div>
         </div>
     </div>
