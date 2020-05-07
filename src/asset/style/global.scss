@@ -93,7 +93,6 @@
   border-radius: 5px;
   padding: 10px;
   background-color: inherit;
-
 }
 
 .tv-grid-line {
@@ -129,6 +128,13 @@
   width: 10px;
   border-radius: 50%;
   background-color: $tv-accent-color-2;
+}
+
+@include media-breakpoint-down(md) {
+  .game-canvas {
+    border-radius: 5px;
+    padding: 2px;
+  }
 }
 
 // CSS Helpers
