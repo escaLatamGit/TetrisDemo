@@ -11,7 +11,7 @@ let gameState = {
     gameEnd: false
 };
 const fps = 50;
-const pixel = 30;
+const pixel = 20;
 const btnContainer = document.querySelector("#start-btn");
 const scoreContainer = document.querySelector("#score-container");
 const container = document.querySelector(".tv-screen");
@@ -19,10 +19,10 @@ const container = document.querySelector(".tv-screen");
 const endListener = ({gameEnd} = {gameEnd: true}) => {
     gameState.gameEnd = gameEnd;
     btnContainer.innerHTML = gameEnd ? 'On' : 'Off';
-    console.log(  btnContainer.classList);
+    console.log(btnContainer.classList);
     btnContainer.classList.remove(gameEnd ? 'tv-off' : 'tv-on');
     btnContainer.classList.add(gameEnd ? 'tv-on' : 'tv-off');
-    console.log(  btnContainer.classList);
+    console.log(btnContainer.classList);
 }
 
 const scoreListener = ({score}) => {
@@ -41,10 +41,14 @@ const startGame = function () {
     instance.gameEnd = true;
     endListener(instance);
 };
+const getCanvasSize = function () {
+    const maxHeight = 0.7 * window.innerHeight;
+    const width = Math.floor((container.offsetWidth) / pieceSize / pixel) * pieceSize * pixel;
+    const height = Math.floor((container.offsetHeight > maxHeight ? container.offsetHeight : maxHeight) / pieceSize / pixel) * pieceSize * pixel;
+    return new BoardSize(height / pixel, width / pixel, pixel, pixel);
+}
 const load = function () {
-    const width = Math.floor((container.offsetWidth - 40) / pieceSize / pixel) * pieceSize * pixel;
-    const sizes = new BoardSize(width / pixel, width / pixel, pixel, pixel);
-    const gameInstance = new TetrisGame("#game-canvas", fps, sizes);
+    const gameInstance = new TetrisGame("#game-canvas", fps, getCanvasSize());
     gameInstance.addStateChangeListener(scoreListener);
     gameInstance.addStateChangeListener(endListener);
     scoreListener({score: '0000'});
@@ -52,11 +56,7 @@ const load = function () {
     gameInstance.init();
 }
 const start = function () {
-    gameState.started = true;
-    const width = Math.floor((container.offsetWidth) / pieceSize / pixel) * pieceSize * pixel;
-    const height = Math.floor((container.offsetHeight) / pieceSize / pixel) * pieceSize * pixel;
-    const sizes = new BoardSize(height / pixel, width / pixel, pixel, pixel);
-    const gameInstance = new TetrisGame("#game-canvas", fps, sizes);
+    const gameInstance = new TetrisGame("#game-canvas", fps, getCanvasSize());
     gameInstance.addStateChangeListener(scoreListener);
     gameInstance.addStateChangeListener(endListener);
     scoreListener({score: '0000'});
