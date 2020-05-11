@@ -22,6 +22,15 @@ export class TetrisGame extends Game {
         this.score = 0;
         this.gameEnd = false;
         this._stateListener = [];
+        this.events = {
+            type: 'keydown',
+            keys: {
+                left: 'ArrowLeft',
+                right: 'ArrowRight',
+                rotate: 'ArrowUp',
+                down: 'ArrowDown'
+            }
+        };
     }
 
     reset() {
@@ -108,22 +117,30 @@ export class TetrisGame extends Game {
         });
         this.currPiece = this.getRandomPiece();
         this.keyListener.init();
-        this.keyListener.addListener('keydown', 'ArrowUp', () => {
+        this.keyListener.addListener(this.events.type, this.events.keys.rotate, () => {
             if (!this.currPiece) return;
             this.currPiece.rotate();
         });
-        this.keyListener.addListener('keydown', 'ArrowLeft', () => {
+        this.keyListener.addListener(this.events.type, this.events.keys.left, () => {
             if (!this.currPiece) return;
             this.currPiece.moveLeft();
         });
-        this.keyListener.addListener('keydown', 'ArrowDown', () => {
+        this.keyListener.addListener(this.events.type, this.events.keys.down, () => {
             if (!this.currPiece) return;
             this.currPiece.moveDown();
         });
-        this.keyListener.addListener('keydown', 'ArrowRight', () => {
+        this.keyListener.addListener(this.events.type, this.events.keys.right, () => {
             if (!this.currPiece) return;
             this.currPiece.moveRight();
         });
+    }
+
+    triggerEvent(eventType) {
+        if (!Object.prototype.hasOwnProperty.call(this.events.keys, eventType)) {
+            throw new Error(`Invalid EventType:${eventType}, Expected Values: ${Object.keys(this.events.keys)}`)
+        }
+        console.log(this.events.type, this.events.keys[eventType]);
+        this.keyListener.resolve(this.events.type, {key:this.events.keys[eventType]});
     }
 
     isOver() {
