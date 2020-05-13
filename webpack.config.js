@@ -82,6 +82,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebPackPlugin({
+            favicon: './src/asset/image/logo.png',
             template: "./src/index.html",
             filename: "./index.html"
         })
