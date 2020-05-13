@@ -12,8 +12,34 @@
     </a>
 </nav>
 <div class="container-fluid vertical-center">
-    <div class="w-fluid row justify-content-center">
-        <div class="col-lg-8">
+    <div class="w-fluid row align-items-center justify-content-center">
+        <div id="tutorial-info" class="col-lg-4">
+            <div class="card">
+
+                <div class="card-body text-center">
+                    <h5 class="card-title tetris-text text-primary">Commands</h5>
+
+                    <p class="card-text">
+                        To start game press
+                        <a class="btn btn-dark text-light btn-sm btn-outline-primary">On/Off</a>
+                        button on TV. <br>
+                        <i  class="text-primary text-monospace"> You must use arrow keys to interact
+                                with game.
+                        </i>
+                    </p>
+                        <p class="text-monospace card-text text-primary text-left">
+                            ArrowUp: <i class="text-dark">Rotate. </i><br>
+                            ArrowDown: <i class="text-dark">move piece to the bottom.</i><br>
+                            ArrowLeft: <i class="text-dark"> move piece to the left. </i><br>
+                            ArrowRight: <i class="text-dark">move piece to the right. </i>
+                        </p>
+
+                    <img class="card-img-bottom card-img-center" src="asset/image/arrows.svg" alt="Card image cap">
+                    <a id="close-info" class="btn btn-info text-light">Close</a>
+                </div>
+            </div>
+        </div>
+        <div id="tv" class="col-lg-6">
             <div class="tv-body" id="game-container">
                 <div class="w-fluid row mx-0 my-0">
                     <div class="col-md-9 tv-screen">
@@ -57,10 +83,10 @@
             <button id="btn-ctrl-left" type="button" class="btn btn-secondary btn-lg btn-block"><</button>
         </div>
         <div class="col-2">
-            <button  id="btn-ctrl-down"  type="button" class="btn btn-secondary btn-lg btn-block"> v </button>
+            <button id="btn-ctrl-down" type="button" class="btn btn-secondary btn-lg btn-block"> v</button>
         </div>
         <div class="col-2">
-            <button id="btn-ctrl-right" type="button" class="btn btn-secondary btn-lg btn-block"> > </button>
+            <button id="btn-ctrl-right" type="button" class="btn btn-secondary btn-lg btn-block"> ></button>
         </div>
         <div class="col-2">
             <button id="btn-ctrl-rotate" type="button" class="btn btn-dark btn-lg btn-block">Rotate</button>

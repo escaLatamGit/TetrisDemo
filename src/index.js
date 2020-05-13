@@ -85,11 +85,11 @@ const awaitResize = function () {
 };
 
 const triggerEvent = function (eventName) {
- if(!instance){
-     console.log(`Instance Empty - Event: ${eventName}`);
-     return;
- }
- instance.triggerEvent(eventName)
+    if (!instance) {
+        console.log(`Instance Empty - Event: ${eventName}`);
+        return;
+    }
+    instance.triggerEvent(eventName)
 };
 
 
@@ -109,9 +109,24 @@ if (isMobile()) {
 
     controlContainer.classList.remove("d-none");
 
-    rotateBtn.addEventListener('click', () =>{ triggerEvent('rotate')});
-    leftBtn.addEventListener('click', () =>{ triggerEvent('left')});
-    downBtn.addEventListener('click', () =>{ triggerEvent('down')});
-    rightBtn.addEventListener('click', () =>{ triggerEvent('right')});
+    rotateBtn.addEventListener('click', () => {
+        triggerEvent('rotate')
+    });
+    leftBtn.addEventListener('click', () => {
+        triggerEvent('left')
+    });
+    downBtn.addEventListener('click', () => {
+        triggerEvent('down')
+    });
+    rightBtn.addEventListener('click', () => {
+        triggerEvent('right')
+    });
 
 }
+
+
+const infoContainer = document.querySelector("#tutorial-info");
+const closeBtn = document.querySelector("#close-info");
+
+closeBtn.addEventListener('click', () => infoContainer.classList.add('d-none'));
+

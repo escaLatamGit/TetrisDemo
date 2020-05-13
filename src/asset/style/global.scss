@@ -157,6 +157,12 @@
   background-color: $tv-accent-color-2;
 }
 
+#tutorial-info, #tv {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  transition: all 500ms ease-in-out;
+}
+
 @include media-breakpoint-down(md) {
   .game-canvas {
     border-radius: 5px;
@@ -224,10 +230,20 @@
   align-items: center;
 }
 
-.no-selectable  {
+.no-selectable {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+}
+
+.card-img-center {
+  width: 40%;
+  display: block;
+  margin: auto;
+}
+
+.tetris-text {
+  font-family: 'RetroArcade', 'Roboto', 'SansSerif', serif;
 }
