@@ -5,9 +5,9 @@ import colorList from '@ref/piece-colors.reference'
 
 export class TetrisGame extends Game {
 
-    constructor(fps, panel = new BoardSize(20, 10), colors = colorList, acceleration = 0.3) {
+    constructor(canvas, fps, panel = new BoardSize(20, 10), colors = colorList, acceleration = 0.3) {
         const sizes = new BoardSize(panel.height * panel.pixelHeight, panel.width * panel.pixelWidth, panel.pixelHeight, panel.pixelWidth);
-        super(fps, sizes);
+        super(canvas, fps, sizes);
         this.currPiece = null;
         this.keyListener = new KeyBoardManager();
         this.speed = 1; //1 pos/sec
@@ -21,10 +21,16 @@ export class TetrisGame extends Game {
         this.colors = colors;
         this.score = 0;
         this.gameEnd = false;
-    }
-
-    refresh() {
-        super.refresh();
+        this._stateListener = [];
+        this.events = {
+            type: 'keydown',
+            keys: {
+                left: 'ArrowLeft',
+                right: 'ArrowRight',
+                rotate: 'ArrowUp',
+                down: 'ArrowDown'
+            }
+        };
     }
 
     reset() {
@@ -57,8 +63,21 @@ export class TetrisGame extends Game {
     }
 
 
-    init(containerSelector, canvasSelector) {
-        super.init(containerSelector, canvasSelector);
+    destroy(canvasSelector) {
+        this.keyListener.destroy();
+        super.destroy();
+    }
+
+    addStateChangeListener(listener) {
+        this._stateListener.push(listener)
+    }
+
+    onStateChange() {
+        this._stateListener?.forEach((listener) => listener(this))
+    }
+
+    start() {
+        super.start();
         super.attachToRefresh(() => this.draw());
         let updateFrameCounter = 0;
         super.attachToRefresh(() => {
@@ -70,13 +89,14 @@ export class TetrisGame extends Game {
                 this.currPiece && this.currPiece.draw();
                 if (lastY === this.currPiece.location.y) {
                     this.freezePieceLocation(this.currPiece);
-                    this.isOver();
+                    if (this.isOver())
+                        this.onStateChange();
                     this.currPiece = this.getRandomPiece();
                     this.speed += this.acceleration;
                     const lineCount = this.resolveMatches();
                     if (lineCount) {
                         this.score += Math.floor(lineCount * this.speed);
-                        console.log(this.score)
+                        this.onStateChange();
                     }
                 }
             }
@@ -97,22 +117,30 @@ export class TetrisGame extends Game {
         });
         this.currPiece = this.getRandomPiece();
         this.keyListener.init();
-        this.keyListener.addListener('keydown', 'ArrowUp', () => {
+        this.keyListener.addListener(this.events.type, this.events.keys.rotate, () => {
             if (!this.currPiece) return;
             this.currPiece.rotate();
         });
-        this.keyListener.addListener('keydown', 'ArrowLeft', () => {
+        this.keyListener.addListener(this.events.type, this.events.keys.left, () => {
             if (!this.currPiece) return;
             this.currPiece.moveLeft();
         });
-        this.keyListener.addListener('keydown', 'ArrowDown', () => {
+        this.keyListener.addListener(this.events.type, this.events.keys.down, () => {
             if (!this.currPiece) return;
             this.currPiece.moveDown();
         });
-        this.keyListener.addListener('keydown', 'ArrowRight', () => {
+        this.keyListener.addListener(this.events.type, this.events.keys.right, () => {
             if (!this.currPiece) return;
             this.currPiece.moveRight();
         });
+    }
+
+    triggerEvent(eventType) {
+        if (!Object.prototype.hasOwnProperty.call(this.events.keys, eventType)) {
+            throw new Error(`Invalid EventType:${eventType}, Expected Values: ${Object.keys(this.events.keys)}`)
+        }
+        console.log(this.events.type, this.events.keys[eventType]);
+        this.keyListener.resolve(this.events.type, {key:this.events.keys[eventType]});
     }
 
     isOver() {
