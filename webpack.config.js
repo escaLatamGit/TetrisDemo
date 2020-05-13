@@ -1,4 +1,5 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const path = require('path');
 module.exports = {
     target: "web",
@@ -56,7 +57,11 @@ module.exports = {
                 test: /\.(png|svg|jpg|gif)$/i,
                 use: [
                     {
-                        loader: 'file-loader'
+                        loader: 'file-loader',
+                        options: {
+                            outputPath: 'content/images/',
+                            name: '[hash:16].[ext]',
+                        },
                     },
                 ]
             },
@@ -64,14 +69,20 @@ module.exports = {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 use: [
                     {
-                        loader: 'file-loader'
+                        loader: 'file-loader',
+                        options: {
+                            outputPath: 'content/fonts/',
+                            name: '[hash:16].[ext]',
+                        },
                     },
                 ]
             }
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebPackPlugin({
+            favicon: './src/asset/image/logo.png',
             template: "./src/index.html",
             filename: "./index.html"
         })
@@ -86,9 +97,9 @@ module.exports = {
         }
     },
     output: {
-        path: path.resolve(__dirname, '/dist'),
+        path: path.resolve(__dirname, './dist'),
         publicPath: '/',
-        filename: 'bundle.js'
+        filename: '[hash:16].js'
     },
     devServer: {
         contentBase: './dist'
