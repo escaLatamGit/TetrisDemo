@@ -54,7 +54,71 @@ $ npm run build
 ``` 
 
 ## 🎨 Customization  
-🚧 On Going......
+
+The Live Demo proposed in this project correspond 
+to a basic implementation of Tetris Game Model, With that, 
+you can customize game behavior based on your expectations. 
+
+### 🥚 Basics
+Let's review some customization of game: 
+```javascript
+/* Constructor Options */
+
+import {TetrisGame} from "@model/tetris.game-model";  
+
+const gameInstance = new TetrisGame(
+                                  canvasSelector, /* CSS Selector of Canvas DOM Element */
+                                  fps,  /* Refresh Rate of Canvas */
+                                  canvasSize,  /* BoardSize instance with definition of Height/Width and Pixel Size  */
+                                  colors,  /* HTML Color Array to use on Game Note: First value represents bg-color */
+                                  acceleration  /*Acceleration rate of game  N px/sec^2 */
+                                  );
+
+/*
+  Continue....
+*/ 
+``` 
+
+```javascript
+/* Customizing Canvas Size */
+
+import {TetrisGame} from "@model/tetris.game-model";
+import {BoardSize} from "@model/game.model";
+
+const pixel = 10; // 10px;
+const height = 10; // 10 pixel Unit -> 10 x 10px = 100px height;
+const width = 10;  // 10 pixel Unit -> 10 x 10px = 100px width;
+
+const canvasSize =  new BoardSize(height, width, pixel, pixel); 
+
+const canvasSelector = "#game-canvas-id";
+const fps = 50; // refresh rate/Frame Per Second;
+
+const gameInstance = new TetrisGame(canvasSelector, fps, canvasSize);
+
+/*
+  Continue....
+*/ 
+``` 
+
+```javascript
+
+/* Customizing Piece Colors */
+
+import {TetrisGame} from "@model/tetris.game-model";
+
+
+const [ pixel, height, width, fps,canvasSelector ] = [ 10, 10, 10, 50, "#game-canvas-id" ];  
+
+const backgroundColor = "#DBDCE8";
+const piecesColor = [ "#7E4AD2", "#01ACF2", "#3DD3B0", "#FFE240", "#FE5670", "#F99D37" ];
+const colorArray = [ backgroundColor, ...piecesColor ];
+const gameInstance = new TetrisGame(canvasSelector, fps, new BoardSize(height, width, pixel, pixel), colorArray);
+
+/*
+  Continue....
+*/ 
+``` 
 
 ## ⚒ Contribution
 Any suggestion or positive idea is welcome, there are many things to do. 
