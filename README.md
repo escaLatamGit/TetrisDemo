@@ -54,6 +54,7 @@ $ npm run build
 🚧 On Going......
 
 ## ⚒ Contribution
+
 Any suggestion or positive idea is welcome, there are many things to do. 
 And how **Helen Keller** said 
 >Alone we can do so little; together we can do so much.
@@ -63,6 +64,9 @@ And how **Helen Keller** said
 - **Let's Do that** 🏗👷‍♀️
 #### Step 3
 - 🔃 Create a new pull request.
+
+We are passionate of we do, and our commits too, let's use Commit Message Emoji 😎, to express intention of each commit. 
+Inspired by [dannyfritz/commit-message-emoji](https://github.com/dannyfritz/commit-message-emoji)
 
 ## Authors
 
