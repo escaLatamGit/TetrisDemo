@@ -43,7 +43,7 @@ $ npm run start
 ``` 
 
 ## 🚀 Deployment
-Webpack allows us to make a compiled version of project to be upload/deployed
+Webpack allows us to make a compiled version of project to be uploaded/deployed
  on an instance of static server o just published on your preferred hosting service. 
  By default, distribution files are generated on `$root/dist`   with all requirements of the application. 
  To generate application bundle, just run npm `build` script. 
