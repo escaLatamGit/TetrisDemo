@@ -39,6 +39,7 @@ There's no need to configure anything to run the application.
 # start local dev server
 $ npm run start
 ``` 
+
 ## 🚀 Deployment
 Webpack allows us to make a compiled version of project to be upload/deployed
  on an instance of static server o just published on your preferred hosting service. 
@@ -54,7 +55,6 @@ $ npm run build
 🚧 On Going......
 
 ## ⚒ Contribution
-
 Any suggestion or positive idea is welcome, there are many things to do. 
 And how **Helen Keller** said 
 >Alone we can do so little; together we can do so much.
@@ -67,6 +67,11 @@ And how **Helen Keller** said
 
 We are passionate of we do, and our commits too, let's use Commit Message Emoji 😎, to express intention of each commit. 
 Inspired by [dannyfritz/commit-message-emoji](https://github.com/dannyfritz/commit-message-emoji)
+
+## 🏗 Built With
+* [Webpack](https://webpack.js.org/) - The static module bundler for modern JavaScript applications.
+* [Babel js](https://babeljs.io/) - The javascript next generation compiler.
+* [Bootstrap](https://getbootstrap.com/) - The world’s most popular front-end open source toolkit. 
 
 ## Authors
 
