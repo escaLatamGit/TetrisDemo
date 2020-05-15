@@ -25,11 +25,27 @@ $ git clone https://github.com/escaLatamGit/TetrisDemo.git
 # install dependencies
 $ npm install
 ``` 
-##### *Install Node Dependencies*
+
+#### 🎉 Usage   
+There's no need to configure anything to run the application.
+ If you correctly installed all project dependencies, you must 
+ use `Development Server` to access to local version of this game, run `start` npm script
+  to start a local server at port 8080 with hotreload version of page. Then, you would access to game
+ in your browser at given URL (http://localhost:8080):
 ```Markdown
 # Run this command on project's root folder
-# install dependencies
-$ npm install
+# start local dev server
+$ npm run start
+``` 
+#### 🚀 Deployment
+Webpack allows us to make a compiled version of project to be upload/deployed
+ on an instance of static server o just published on your preferred hosting service. 
+ By default, distribution files are generated on `$root/dist`   with all requirements of the application. 
+ To generate application bundle, just run npm `build` script. 
+```Markdown
+# Run this command on project's root folder
+# Generate static version of the game
+$ npm run build
 ``` 
 
 ## Authors
