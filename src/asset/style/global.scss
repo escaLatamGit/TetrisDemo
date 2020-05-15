@@ -1,0 +1,249 @@
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
+
+@font-face {
+  font-family: 'RetroArcade';
+  src: url('../font/Intro/WEB/IntroDemo-BlackInlineCAPS.eot');
+  src: url('../font/Intro/WEB/IntroDemo-BlackInlineCAPS.eot?#iefix') format('embedded-opentype'),
+  url('../font/Intro/WEB/IntroDemo-BlackInlineCAPS.woff2') format('woff2'),
+  url('../font/Intro/WEB/IntroDemo-BlackInlineCAPS.woff') format('woff'),
+  url('../font/Intro/TTF/IntroDemo-BlackInlineCAPS.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LCD';
+  src: url('../font/lcd/lcddot.woff') format('woff'),
+  url('../font/lcd/elektra.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+// NavBar Properties
+#logo {
+  margin-right: 10px;
+  filter: drop-shadow(-$logo-mg $logo-mg 0px $logo-shadow) drop-shadow(-$logo-mg $logo-mg 0px $logo-accent) drop-shadow(0 0 3*$logo-mg $logo-accent);
+}
+
+.navbar-brand > span {
+  color: $title;
+  text-shadow: -$title-mg $title-mg 0px $title-accent,
+  -2*$title-mg 2*$title-mg 0px $title-shadow;
+  font: 30px 'RetroArcade', 'Roboto', 'SansSerif', serif;
+}
+
+//TV Model Properties
+
+.game-canvas {
+  position: relative;
+  border-radius: 5%;
+  padding: 10px;
+  display: block;
+  margin: auto;
+}
+
+.tv-body {
+  background-color: $tv-back-color;
+  padding: 10px;
+  margin: 0;
+  position: relative;
+  display: block;
+  border-radius: 5px;
+}
+
+.tv-screen {
+  background: $tv-base-color;
+  position: relative;
+  display: block;
+  margin: auto;
+  border-radius: 5px;
+  padding: 0;
+}
+
+.tv-channel {
+  transition: all 100ms ease-in-out;
+  background: $tv-back-color;
+  border: 2px solid $tv-back-color;
+  margin: 10px;
+  padding: 2px;
+  border-radius: 5px;
+  color: $tv-accent-color;
+  text-align: center;
+  font: 30px 'LCD', 'RetroArcade', 'Roboto', 'SansSerif', serif;
+}
+
+.tv-channel:hover {
+  color: $tv-back-color;
+  background: $tv-accent-color;
+}
+
+.tv-btn {
+  transition: all 500ms ease-in-out;
+  border: 2px solid $tv-back-color;
+  margin: 10px;
+  padding: 2px;
+  border-radius: 5px;
+  text-align: center;
+  font: 30px 'LCD', 'RetroArcade', 'Roboto', 'SansSerif', serif;
+}
+
+.tv-btn.tv-on,
+.tv-btn.tv-off:hover {
+  background: $tv-accent-color;
+  color: $tv-back-color;
+}
+
+.tv-btn.tv-off,
+.tv-btn.tv-on:hover {
+  background: $tv-accent-color-2;
+  color: $tv-back-color;
+}
+
+.tv-btn:active {
+  box-shadow: 0 0 20px $tv-back-color;
+}
+
+
+.tv-controls {
+  display: inline-block;
+  height: calc(100% - 2 * 10px);
+  width: calc(100% - 10px);
+  margin: 10px;
+  border-radius: 5px;
+  background-color: $tv-base-color;
+}
+
+.tv-grid-line-layout {
+  border: 1px solid $tv-border-color;
+  margin: 10px;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: inherit;
+}
+
+.tv-grid-line {
+  height: 5px;
+  width: calc(100% - 4px);
+  border-radius: 5px;
+  margin: 2px;
+  background-color: $tv-accent-color;
+  box-shadow: 1px 1px 0px $tv-back-color;
+}
+
+.tv-grid-line:nth-child(odd) {
+  background-color: $tv-accent-color-2;
+}
+
+.rotated {
+  transform: rotate(60deg);
+}
+
+.tv-control-dot {
+  margin: 10px auto;
+  padding: 5px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: $tv-accent-color;
+  border: solid 1px $tv-border-color;
+}
+
+.tv-control-inner-dot {
+  margin: auto;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: $tv-accent-color-2;
+}
+
+#tutorial-info, #tv {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  transition: all 500ms ease-in-out;
+}
+
+@include media-breakpoint-down(md) {
+  .game-canvas {
+    border-radius: 5px;
+    padding: 2px;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .game-canvas {
+    border-radius: 5px;
+    padding: 2px;
+  }
+  .tv-body {
+    -webkit-animation: tvShadow 2s infinite alternate;
+    -moz-animation: tvShadow 1s infinite alternate;
+    -o-animation: tvShadow 1s infinite alternate;
+    animation: tvShadow 1s infinite alternate;
+  }
+
+  @-webkit-keyframes tvShadow {
+    0% {
+      box-shadow: 0 0 50px 0 $tv-back-color;
+    }
+    100% {
+      box-shadow: 0 0 10px 0 $tv-accent-color;
+    }
+  }
+  @-moz-keyframes tvShadow {
+    0% {
+      box-shadow: 0 0 50px 0 $tv-back-color;
+    }
+    100% {
+      box-shadow: 0 0 10px 0 $tv-accent-color;
+    }
+  }
+  @-o-keyframes tvShadow {
+    0% {
+      box-shadow: 0 0 50px 0 $tv-back-color;
+    }
+    100% {
+      box-shadow: 0 0 10px 0 $tv-accent-color;
+    }
+  }
+  @keyframes tvShadow {
+    0% {
+      box-shadow: 0 0 50px 0 $tv-back-color;
+    }
+    100% {
+      box-shadow: 0 0 10px 0 $tv-accent-color;
+    }
+  }
+}
+
+// CSS Helpers
+.w-fluid {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.vertical-center {
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.no-selectable {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.card-img-center {
+  width: 40%;
+  display: block;
+  margin: auto;
+}
+
+.tetris-text {
+  font-family: 'RetroArcade', 'Roboto', 'SansSerif', serif;
+}
