@@ -6,7 +6,7 @@
  | Desktop Version | Mobile (On Going) | 
  | :---:         |     :---:      |  
  | ![](./raw/preview_game.gif)| ![](./raw/preview_mobile_game.gif)   |  
- | <a href="https://esca-tetris-demo-f96ea.web.app/" target="_blank">Live Demo</a> | Enjoy It!🎉 |
+ | [Live Demo](https://esca-tetris-demo-f96ea.web.app/) | Enjoy It!🎉 |
    
 ## ⚡ Getting Started
 
