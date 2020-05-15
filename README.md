@@ -28,7 +28,7 @@ $ git clone https://github.com/escaLatamGit/TetrisDemo.git
 $ npm install
 ``` 
 
-#### 🎉 Usage   
+## 🎉 Usage   
 There's no need to configure anything to run the application.
  If you correctly installed all project dependencies, you must 
  use `Development Server` to access to local version of this game, run `start` npm script
@@ -39,7 +39,7 @@ There's no need to configure anything to run the application.
 # start local dev server
 $ npm run start
 ``` 
-#### 🚀 Deployment
+## 🚀 Deployment
 Webpack allows us to make a compiled version of project to be upload/deployed
  on an instance of static server o just published on your preferred hosting service. 
  By default, distribution files are generated on `$root/dist`   with all requirements of the application. 
@@ -49,6 +49,20 @@ Webpack allows us to make a compiled version of project to be upload/deployed
 # Generate static version of the game
 $ npm run build
 ``` 
+
+## 🎨 Customization  
+🚧 On Going......
+
+## ⚒ Contribution
+Any suggestion or positive idea is welcome, there are many things to do. 
+And how **Helen Keller** said 
+>Alone we can do so little; together we can do so much.
+#### Step 1
+- **Fork or Clone this repository**
+#### Step 2
+- **Let's Do that** 🏗👷‍♀️
+#### Step 3
+- 🔃 Create a new pull request.
 
 ## Authors
 
