@@ -4,8 +4,10 @@
  
  
  | Desktop Version | Mobile (On Going) | 
- | :---         |     :---:      |  
+ | :---:         |     :---:      |  
  | ![](./raw/preview_game.gif)| ![](./raw/preview_mobile_game.gif)   |  
+ | <a href="https://esca-tetris-demo-f96ea.web.app/" target="_blank">Live Demo</a> | Enjoy It!🎉 |
+   
 ## ⚡ Getting Started
 
 There aren't many things to do before start working with this service. 
