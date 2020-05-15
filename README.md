@@ -1,9 +1,11 @@
 # ![](./src/asset/image/logo.png) Tetris Demo
 
 > This is a demo project to design a Tetris Game on Pure Javascript based on OOP.
-
-![Game Example](./raw/preview_game.gif)
  
+ 
+ | Desktop Version | Mobile (On Going) | 
+ | :---         |     :---:      |  
+ | ![](./raw/preview_game.gif)| ![](./raw/preview_mobile_game.gif)   |  
 ## ⚡ Getting Started
 
 There aren't many things to do before start working with this service. 
